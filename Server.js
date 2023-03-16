@@ -4,6 +4,7 @@ const Errorhandler = require("./middleware/errorhandler")
 const app = express();
 const portal = require("./routes/portal")
 const cors = require("cors")
+const path = require('path')
 
 
 
@@ -36,6 +37,11 @@ app.use(function (req, res, next) {
     res.status(404).send("Something went wrong! Please try after some time.");
   })
 
+
+  app.use(express.static(path.join(__dirname,'../job-portal-frontend/my-app/build')))
+  app.get('*',function(req,res){
+    res.sendFile(path.join(__dirname,'../job-portal-frontend/my-app/build/index.html'))
+  })
 
 //connection part
 const port = process.env.PORT || 3001;
